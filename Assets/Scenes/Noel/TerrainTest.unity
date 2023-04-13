@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.3069224, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -489,8 +489,7 @@ MonoBehaviour:
   tilesX: 1
   tilesZ: 0
   material: {fileID: 2100000, guid: c964be80feaf98b48aa98247b0d96710, type: 2}
-  treePrefab: {fileID: 8679574169397314620, guid: 84f68e8db8526db41bed505ab7a0a094,
-    type: 3}
+  treePrefab: {fileID: 1550140418629916, guid: 3e07483cd9aa6a141bb9c8e2d2c2bdad, type: 3}
 --- !u!4 &1458225253
 Transform:
   m_ObjectHideFlags: 0
