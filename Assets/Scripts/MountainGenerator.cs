@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
 public class MountainGenerator : MonoBehaviour
@@ -10,23 +6,21 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
-    public int width = 100;
-    public int height = 100;
-    public float scale = 20.0f;
-    public float heightMultiplier = 5.0f;
-    public int tilesX = 2;
-    public int tilesZ = 2;
-    public Material material;
+    [SerializeField] int width = 100;
+    [SerializeField] int height = 100;
+    [SerializeField] float scale = 20.0f;
+    [SerializeField] float heightMultiplier = 5.0f;
+    [SerializeField] int tilesX = 2;
+    [SerializeField] int tilesZ = 2;
+    [SerializeField] Material material;
 
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
-
+    
     private float timer;
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
-    
-
     void Start()
     {
         timer = 2f;
@@ -52,7 +46,7 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
-    void CreateShape(int tx, int tz)
+    void CreateShape()
     {
         Vector3[] vertices = new Vector3[width * (height + 1)];
         int[] triangles = new int[(width - 1) * height * 6];
@@ -63,7 +57,7 @@ public class MountainGenerator : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
-                float heightValue = Mathf.PerlinNoise((float)(tx * width + x) / (width) * scale, (float)(tz * height + z) / (height) * scale) * heightMultiplier;
+                float heightValue = Mathf.PerlinNoise((float)(width + x) / (width) * scale, (float)(tilesZ * height + z) / (height) * scale) * heightMultiplier;
 
                 vertices[z * width + x] = new Vector3(x, heightValue, z);
 
@@ -82,16 +76,15 @@ public class MountainGenerator : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log(tz);
-        meshes[tz].vertices = vertices;
-        meshes[tz].triangles = triangles;
+        
+        meshes[tilesZ].vertices = vertices;
+        meshes[tilesZ].triangles = triangles;
     }
 
-    void UpdateMesh(int tx, int tz)
+    void UpdateMesh(int tz)
     {
-        meshes[tz * tilesX + tx].RecalculateNormals();
-        meshFilters[tz * tilesX + tx].mesh = meshes[tz * tilesX + tx];
+        meshes[tz * tilesX].RecalculateNormals();
+        meshFilters[tz * tilesX].mesh = meshes[tz * tilesX];
     }
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
@@ -118,15 +111,13 @@ public class MountainGenerator : MonoBehaviour
 
         meshRenderer.material = material;
 
-        CreateShape(0, tilesZ);
-        UpdateMesh(0, tilesZ);
+        CreateShape();
+        UpdateMesh(tilesZ);
 
         MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
         meshCollider.sharedMesh = meshes[tilesZ];
         
         tilesZ++;
-        // GenerateTerrain();
-        
     }
 
     public void RemoveTile()
