@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MountainGenerator : MonoBehaviour
@@ -18,52 +20,102 @@ public class MountainGenerator : MonoBehaviour
     public int tilesX = 2;
     public int tilesZ = 2;
 
-    private MeshFilter[] meshFilters;
-    private Mesh[] meshes;
+    private List<MeshFilter> meshFilters;
+    private List<Mesh> meshes;
+
+    private float timer;
 
     void Start()
     {
-        meshFilters = new MeshFilter[tilesX * tilesZ];
-        meshes = new Mesh[tilesX * tilesZ];
+        timer = 2f;
+        GenerateTerrain();
+    }
 
-        for (int tz = 0; tz < tilesZ; tz++)
+    private void Update()
+    {
+        
+        timer -= Time.deltaTime;
+        if (timer <= 0)
         {
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                GameObject tile = new GameObject("Tile_" + tx + "_" + tz);
-                tile.transform.position = new Vector3(tx * width, 0, tz * height);
-                tile.transform.parent = transform;
-
-                MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
-                MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
-
-                meshFilters[tz * tilesX + tx] = meshFilter;
-                meshes[tz * tilesX + tx] = new Mesh();
-
-                meshRenderer.material = GetComponent<MeshRenderer>().material;
-
-                CreateShape(tx, tz);
-                UpdateMesh(tx, tz);
-            }
+            AddTile();
+            timer = 2f;
         }
+    }
+
+    public void GenerateTerrain()
+    {
+        meshFilters = new List<MeshFilter>();
+        meshes = new List<Mesh>();
+        // meshFilters = new MeshFilter[tilesX * tilesZ];
+        // meshes = new Mesh[tilesX * tilesZ];
+
+        // for (int tz = 0; tz < tilesZ; tz++)
+        // {
+        //     for (int tx = 0; tx < tilesX; tx++)
+        //     {
+        //         GameObject tile = new GameObject("Tile_" + tx + "_" + tz);
+        //         tile.transform.position = new Vector3(width, 0,  tilesZ * height);
+        //         tile.transform.rotation = Quaternion.Euler(0, 0, 180);
+        //         tile.transform.parent = transform;
+        //
+        //         MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
+        //         MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
+        //
+        //         meshFilters.Add(meshFilter);
+        //         meshes.Add(new Mesh());
+        //         
+        //         // meshFilters[tz * tilesX + tx] = meshFilter;
+        //         // meshes[tz * tilesX + tx] = new Mesh();
+        //
+        //         meshRenderer.material = GetComponent<MeshRenderer>().material;
+        //
+        //         CreateShape(tx, tz);
+        //         UpdateMesh(tx, tz);
+        //     }
+        // }
+        
+        AddTile();
+    }
+
+    public void AddTile()
+    {
+        GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
+        tile.transform.position = new Vector3(width, 0, tilesZ * height);
+        tile.transform.rotation = Quaternion.Euler(0, 0, 180);
+        tile.transform.parent = transform;
+
+        MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
+
+        meshFilters.Add(meshFilter);
+        meshes.Add(new Mesh());
+
+        meshRenderer.material = GetComponent<MeshRenderer>().material;
+
+        CreateShape(0, tilesZ);
+        UpdateMesh(0, tilesZ);
+        
+        tilesZ++;
+        // GenerateTerrain();
+        
     }
 
     void CreateShape(int tx, int tz)
     {
-        Vector3[] vertices = new Vector3[width * height];
-        int[] triangles = new int[(width - 1) * (height - 1) * 6];
+        Vector3[] vertices = new Vector3[width * (height + 1)];
+        int[] triangles = new int[(width - 1) * height * 6];
 
         int triangleIndex = 0;
 
-        for (int z = 0; z < height; z++)
+        for (int z = 0; z <= height; z++)
         {
             for (int x = 0; x < width; x++)
             {
-                float heightValue = Mathf.PerlinNoise((float)(tx * width + x) / (width * tilesX) * scale, (float)(tz * height + z) / (height * tilesZ) * scale) * heightMultiplier;
+                float heightValue = Mathf.PerlinNoise((float)(tx * width + x) / (width) * scale, (float)(tz * height + z) / (height) * scale) * heightMultiplier;
 
                 vertices[z * width + x] = new Vector3(x, heightValue, z);
 
-                if (x < width - 1 && z < height - 1)
+                if (x < width - 1 && z < height)
                 {
                     int vertexIndex = z * width + x;
                     triangles[triangleIndex + 0] = vertexIndex;
@@ -79,8 +131,9 @@ public class MountainGenerator : MonoBehaviour
             }
         }
 
-        meshes[tz * tilesX + tx].vertices = vertices;
-        meshes[tz * tilesX + tx].triangles = triangles;
+        Debug.Log(tz);
+        meshes[tz].vertices = vertices;
+        meshes[tz].triangles = triangles;
     }
 
     void UpdateMesh(int tx, int tz)
