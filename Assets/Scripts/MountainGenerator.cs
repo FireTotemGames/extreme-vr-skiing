@@ -19,6 +19,7 @@ public class MountainGenerator : MonoBehaviour
     public float heightMultiplier = 5.0f;
     public int tilesX = 2;
     public int tilesZ = 2;
+    public Material material;
 
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
@@ -90,10 +91,13 @@ public class MountainGenerator : MonoBehaviour
         meshFilters.Add(meshFilter);
         meshes.Add(new Mesh());
 
-        meshRenderer.material = GetComponent<MeshRenderer>().material;
+        meshRenderer.material = material;
 
         CreateShape(0, tilesZ);
         UpdateMesh(0, tilesZ);
+
+        MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
+        meshCollider.sharedMesh = meshes[tilesZ];
         
         tilesZ++;
         // GenerateTerrain();
