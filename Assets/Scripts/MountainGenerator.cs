@@ -2,16 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class MountainGenerator : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
-    /* ======================================================================================================================== */
-
-    /* ======================================================================================================================== */
-    /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
     public int width = 100;
     public int height = 100;
@@ -25,6 +22,10 @@ public class MountainGenerator : MonoBehaviour
     private List<Mesh> meshes;
 
     private float timer;
+    /* ======================================================================================================================== */
+    /* UNITY CALLBACKS                                                                                                          */
+    /* ======================================================================================================================== */
+    
 
     void Start()
     {
@@ -39,71 +40,18 @@ public class MountainGenerator : MonoBehaviour
         if (timer <= 0)
         {
             AddTile();
+            //RemoveTile();
             timer = 2f;
         }
     }
 
-    public void GenerateTerrain()
-    {
-        meshFilters = new List<MeshFilter>();
-        meshes = new List<Mesh>();
-        // meshFilters = new MeshFilter[tilesX * tilesZ];
-        // meshes = new Mesh[tilesX * tilesZ];
+    /* ======================================================================================================================== */
+    /* COROUTINES                                                                                                               */
+    /* ======================================================================================================================== */
 
-        // for (int tz = 0; tz < tilesZ; tz++)
-        // {
-        //     for (int tx = 0; tx < tilesX; tx++)
-        //     {
-        //         GameObject tile = new GameObject("Tile_" + tx + "_" + tz);
-        //         tile.transform.position = new Vector3(width, 0,  tilesZ * height);
-        //         tile.transform.rotation = Quaternion.Euler(0, 0, 180);
-        //         tile.transform.parent = transform;
-        //
-        //         MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
-        //         MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
-        //
-        //         meshFilters.Add(meshFilter);
-        //         meshes.Add(new Mesh());
-        //         
-        //         // meshFilters[tz * tilesX + tx] = meshFilter;
-        //         // meshes[tz * tilesX + tx] = new Mesh();
-        //
-        //         meshRenderer.material = GetComponent<MeshRenderer>().material;
-        //
-        //         CreateShape(tx, tz);
-        //         UpdateMesh(tx, tz);
-        //     }
-        // }
-        
-        AddTile();
-    }
-
-    public void AddTile()
-    {
-        GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
-        tile.transform.position = new Vector3(width, 0, tilesZ * height);
-        tile.transform.rotation = Quaternion.Euler(0, 0, 180);
-        tile.transform.parent = transform;
-
-        MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
-
-        meshFilters.Add(meshFilter);
-        meshes.Add(new Mesh());
-
-        meshRenderer.material = material;
-
-        CreateShape(0, tilesZ);
-        UpdateMesh(0, tilesZ);
-
-        MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
-        meshCollider.sharedMesh = meshes[tilesZ];
-        
-        tilesZ++;
-        // GenerateTerrain();
-        
-    }
-
+    /* ======================================================================================================================== */
+    /* PRIVATE FUNCTIONS                                                                                                        */
+    /* ======================================================================================================================== */
     void CreateShape(int tx, int tz)
     {
         Vector3[] vertices = new Vector3[width * (height + 1)];
@@ -145,19 +93,50 @@ public class MountainGenerator : MonoBehaviour
         meshes[tz * tilesX + tx].RecalculateNormals();
         meshFilters[tz * tilesX + tx].mesh = meshes[tz * tilesX + tx];
     }
-
-    /* ======================================================================================================================== */
-    /* COROUTINES                                                                                                               */
-    /* ======================================================================================================================== */
-
-    /* ======================================================================================================================== */
-    /* PRIVATE FUNCTIONS                                                                                                        */
-    /* ======================================================================================================================== */
-
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
+    public void GenerateTerrain()
+    {
+        meshFilters = new List<MeshFilter>();
+        meshes = new List<Mesh>();
+        AddTile();
+    }
 
+    public void AddTile()
+    {
+        GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
+        tile.transform.position = new Vector3(width, 0, tilesZ * height);
+        tile.transform.rotation = Quaternion.Euler(0, 0, 180);
+        tile.transform.parent = transform;
+
+        MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
+
+        meshFilters.Add(meshFilter);
+        meshes.Add(new Mesh());
+
+        meshRenderer.material = material;
+
+        CreateShape(0, tilesZ);
+        UpdateMesh(0, tilesZ);
+
+        MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
+        meshCollider.sharedMesh = meshes[tilesZ];
+        
+        tilesZ++;
+        // GenerateTerrain();
+        
+    }
+
+    public void RemoveTile()
+    {
+        GameObject mesh = meshFilters[0].gameObject;
+        meshFilters.RemoveAt(0);
+        meshes.RemoveAt(0);
+        Destroy(mesh);
+        
+    }
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
     /* ======================================================================================================================== */
