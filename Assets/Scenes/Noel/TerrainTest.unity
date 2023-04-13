@@ -489,6 +489,8 @@ MonoBehaviour:
   tilesX: 1
   tilesZ: 0
   material: {fileID: 2100000, guid: c964be80feaf98b48aa98247b0d96710, type: 2}
+  treePrefab: {fileID: 8679574169397314620, guid: 84f68e8db8526db41bed505ab7a0a094,
+    type: 3}
 --- !u!4 &1458225253
 Transform:
   m_ObjectHideFlags: 0

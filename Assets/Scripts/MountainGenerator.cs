@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MountainGenerator : MonoBehaviour
@@ -13,6 +14,8 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] int tilesX = 2;
     [SerializeField] int tilesZ = 2;
     [SerializeField] Material material;
+    
+    [SerializeField] GameObject treePrefab;
 
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
@@ -65,12 +68,12 @@ public class MountainGenerator : MonoBehaviour
                 {
                     int vertexIndex = z * width + x;
                     triangles[triangleIndex + 0] = vertexIndex;
-                    triangles[triangleIndex + 1] = vertexIndex + width + 1;
-                    triangles[triangleIndex + 2] = vertexIndex + width;
+                    triangles[triangleIndex + 1] = vertexIndex + width;
+                    triangles[triangleIndex + 2] = vertexIndex + width + 1;
 
                     triangles[triangleIndex + 3] = vertexIndex;
-                    triangles[triangleIndex + 4] = vertexIndex + 1;
-                    triangles[triangleIndex + 5] = vertexIndex + width + 1;
+                    triangles[triangleIndex + 4] = vertexIndex + width + 1;
+                    triangles[triangleIndex + 5] = vertexIndex + 1;
 
                     triangleIndex += 6;
                 }
@@ -100,7 +103,7 @@ public class MountainGenerator : MonoBehaviour
     {
         GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
         tile.transform.position = new Vector3(width, 0, tilesZ * height);
-        tile.transform.rotation = Quaternion.Euler(0, 0, 180);
+        //tile.transform.rotation = Quaternion.Euler(0, 0, 180);
         tile.transform.parent = transform;
 
         MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
@@ -116,6 +119,8 @@ public class MountainGenerator : MonoBehaviour
 
         MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
         meshCollider.sharedMesh = meshes[tilesZ];
+
+        SpawnTrees();
         
         tilesZ++;
     }
@@ -126,6 +131,19 @@ public class MountainGenerator : MonoBehaviour
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
         Destroy(mesh);
+        
+    }
+
+    private void SpawnTrees()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            Vector3 randomPosition = new Vector3();
+            randomPosition.x = width + Random.Range(0, width);
+            randomPosition.z = tilesZ * height + Random.Range(0, height);
+            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / scale, randomPosition.z / scale) * heightMultiplier;
+            Instantiate(treePrefab, randomPosition, Quaternion.identity, meshFilters.Last().transform);
+        }
         
     }
     /* ======================================================================================================================== */
