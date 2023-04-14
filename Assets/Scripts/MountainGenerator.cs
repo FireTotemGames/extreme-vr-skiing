@@ -151,7 +151,7 @@ public class MountainGenerator : MonoBehaviour
         Vector3 rampPosition = new Vector3();
         rampPosition.x = Random.Range(-20f, 20f);
         rampPosition.z = Random.Range(height / 6f, height * 5f / 6f);
-        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, rampPosition.z / height * scale) * heightMultiplier - 0.5f;
+        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 1f;
         Instantiate(rampPrefab, rampPosition, Quaternion.identity, meshFilter.transform);
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);
