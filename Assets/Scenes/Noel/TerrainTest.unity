@@ -614,6 +614,7 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: c964be80feaf98b48aa98247b0d96710, type: 2}
   physicMaterial: {fileID: 0}
   tileTriggerPrefab: {fileID: 0}
+  invisibleWallPrefab: {fileID: 0}
   numberOfTrees: 1000
   gaussWidth: 50
   tree: {fileID: 192044, guid: 9d96413a50b1a8f4dbe194c1cc209a56, type: 3}
@@ -977,6 +978,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Snow Storm
       objectReference: {fileID: 0}
+    - target: {fileID: 2003847299296705949, guid: aa864c507423bbe44a56c3ccfbe1b72c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2003847299296705950, guid: aa864c507423bbe44a56c3ccfbe1b72c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1034,3 +1040,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa864c507423bbe44a56c3ccfbe1b72c, type: 3}
+--- !u!1001 &4983207798270438601
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4983207798205005705, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_Name
+      value: Avalanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207798205005707, guid: 8d2bca9d9aecba244b65808fe3fdfd3e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8d2bca9d9aecba244b65808fe3fdfd3e, type: 3}
