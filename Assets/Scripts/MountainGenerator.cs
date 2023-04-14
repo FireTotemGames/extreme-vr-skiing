@@ -10,20 +10,22 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
+
+    public static MountainGenerator Instance;
+    
     [Header("Slope Generation")]
     [SerializeField] int width = 100;
     [SerializeField] int height = 100;
     [SerializeField] float scale = 20.0f;
     [SerializeField] float heightMultiplier = 5.0f;
-    [SerializeField] int tilesX = 2;
     [SerializeField] int tilesZ = 2;
     [SerializeField] private Material material;
     [SerializeField] private PhysicMaterial physicMaterial;
-    
+    [SerializeField] private GameObject tileTriggerPrefab;
+
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
     
-    private float timer;
     private float slopeAngle;
 
     [Header("Gaussian Tree Distribution")]
@@ -34,23 +36,23 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     void Start()
     {
         slopeAngle = transform.rotation.eulerAngles.x;
-        timer = 2f;
         GenerateTerrain();
-    }
-
-    private void Update()
-    {
-        
-        timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
-            AddTile();
-            //RemoveTile();
-            timer = 2f;
-        }
     }
 
     /* ======================================================================================================================== */
@@ -91,26 +93,28 @@ public class MountainGenerator : MonoBehaviour
             }
         }
         
-        meshes[tilesZ].vertices = vertices;
-        meshes[tilesZ].triangles = triangles;
+        meshes.Last().vertices = vertices;
+        meshes.Last().triangles = triangles;
     }
 
-    void UpdateMesh(int tz)
+    void UpdateMesh()
     {
-        meshes[tz * tilesX].RecalculateNormals();
-        meshFilters[tz * tilesX].mesh = meshes[tz * tilesX];
+        meshes.Last().RecalculateNormals();
+        meshFilters.Last().mesh = meshes.Last();
     }
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
-    public void GenerateTerrain()
+    private void GenerateTerrain()
     {
         meshFilters = new List<MeshFilter>();
         meshes = new List<Mesh>();
+        
+        AddTile(false);
         AddTile();
     }
 
-    public void AddTile()
+    public void AddTile(bool generateTileTrigger = true)
     {
         GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
         //tile.transform.rotation = Quaternion.Euler(0, 0, 180);
@@ -125,14 +129,19 @@ public class MountainGenerator : MonoBehaviour
         meshRenderer.material = material;
 
         CreateShape();
-        UpdateMesh(tilesZ);
+        UpdateMesh();
 
         MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
-        meshCollider.sharedMesh = meshes[tilesZ];
+        meshCollider.sharedMesh = meshes.Last();
         meshCollider.material = physicMaterial;
 
         SpawnTrees();
         //GenerateGaussianGrid();
+
+        if (generateTileTrigger == true)
+        {
+            Instantiate(tileTriggerPrefab, Vector3.forward * height / 2f, Quaternion.identity, meshFilter.transform);
+        }
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);
         tile.transform.localRotation = Quaternion.identity;
@@ -142,6 +151,7 @@ public class MountainGenerator : MonoBehaviour
 
     public void RemoveTile()
     {
+        // meshFilters[0].gameObject.SetActive(false);
         GameObject mesh = meshFilters[0].gameObject;
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
