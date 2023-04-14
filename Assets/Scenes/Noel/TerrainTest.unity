@@ -489,15 +489,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 100
   height: 100
-  treeAmount: 100
   scale: 10
   heightMultiplier: 5
   tilesX: 1
   tilesZ: 0
   material: {fileID: 2100000, guid: c964be80feaf98b48aa98247b0d96710, type: 2}
-  treePrefab: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
-  gaussianOffset: 0
-  gaussianWidth: 10
+  numberOfTrees: 1000
+  gaussWidth: 50
+  tree: {fileID: 192044, guid: 9d96413a50b1a8f4dbe194c1cc209a56, type: 3}
+  probabilityCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.5504781
+      value: 0.8747761
+      inSlope: 1.0979354
+      outSlope: 1.0979354
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.24913839
+    - serializedVersion: 3
+      time: 0.6456557
+      value: 0.96990097
+      inSlope: 0.35815647
+      outSlope: 0.35815647
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &1458225253
 Transform:
   m_ObjectHideFlags: 0
@@ -505,11 +546,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1458225249}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
