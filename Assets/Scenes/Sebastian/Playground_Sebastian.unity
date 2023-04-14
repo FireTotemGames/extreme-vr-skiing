@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 1, g: 1, b: 1, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.005
+  m_FogDensity: 0.1
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -149,7 +149,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44319656}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 11a0b1629da5818489c001f790e47485, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 104026988}
   - component: {fileID: 104026987}
   - component: {fileID: 104026989}
+  - component: {fileID: 104026990}
   m_Layer: 3
   m_Name: Physics Rig
   m_TagString: Player
@@ -300,6 +301,44 @@ MonoBehaviour:
   rightHand: {fileID: 885877199}
   skiStickLeft: {fileID: 2079979048}
   skiStickRight: {fileID: 1998091333}
+--- !u!114 &104026990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104026986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 137a20a9d6e6ca44ba3002a241d08207, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1209472663}
+  fogDistribution:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.005
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  mountainGenerator: {fileID: 596821616}
 --- !u!1 &337848931
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,7 +1306,7 @@ GameObject:
   - component: {fileID: 596821614}
   - component: {fileID: 596821616}
   m_Layer: 0
-  m_Name: SkiSlope
+  m_Name: MountainGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1281,7 +1320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596821612}
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0, y: -5, z: 5}
+  m_LocalPosition: {x: 0, y: -10, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1300,9 +1339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7944a68d322845891727f4ec38a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 100
+  width: 200
   height: 200
-  scale: 3
+  scale: 5
   heightMultiplier: 5
   tilesZ: 0
   material: {fileID: 2100000, guid: 9988323bcb3b4d74e8405a62b7dc24ea, type: 2}
@@ -1313,8 +1352,8 @@ MonoBehaviour:
     type: 3}
   rampPrefab: {fileID: 5760056311774051981, guid: 52af535f40a22e443ad0c7fc7972fa93,
     type: 3}
-  numberOfTrees: 100
-  gaussWidth: 50
+  numberOfTrees: 1000
+  gaussWidth: 100
   tree: {fileID: 192044, guid: 9d96413a50b1a8f4dbe194c1cc209a56, type: 3}
   probabilityCurve:
     serializedVersion: 2
@@ -1330,7 +1369,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
+      value: 1.07547
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2235,7 +2274,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035059758}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 11a0b1629da5818489c001f790e47485, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

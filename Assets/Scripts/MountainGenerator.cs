@@ -35,6 +35,8 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] private float gaussWidth = 50f;
     [SerializeField] private GameObject tree;
     [SerializeField] private AnimationCurve probabilityCurve;
+
+    public int Width => width;
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
