@@ -16,4 +16,5 @@
 {aaa5dfe4-b7f3-4653-a7b0-4ed9816d6e32} event:/sounds/push3D
 {0d6d4176-03f7-43c1-9032-3cc12b2d605f} event:/sounds/stormLoop
 {9e52767d-7ac2-435d-8797-faa2fb023f61} parameter:/intensity
+{830b0995-57dd-4356-ae03-e007f498c27c} parameter:/progress
 {8675d063-ee51-4dfa-aec2-7e36f2db8928} snapshot:/pause
