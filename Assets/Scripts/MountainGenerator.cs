@@ -12,7 +12,12 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
 
     public static MountainGenerator Instance;
-    
+
+    [Header("Avalanche")]
+    [SerializeField] private Transform avalanche;
+    [SerializeField] private float avalancheStartSpeed;
+    [SerializeField] private float avalancheAcceleration;
+
     [Header("Slope Generation")]
     [SerializeField] int width = 100;
     [SerializeField] int height = 100;
@@ -29,6 +34,8 @@ public class MountainGenerator : MonoBehaviour
     private List<Mesh> meshes;
     
     private float slopeAngle;
+    private bool avalancheActive;
+    private float avalancheSpeed;
 
     [Header("Gaussian Tree Distribution")]
     [SerializeField] private int numberOfTrees = 100;
@@ -57,6 +64,18 @@ public class MountainGenerator : MonoBehaviour
     {
         slopeAngle = transform.rotation.eulerAngles.x;
         GenerateTerrain();
+        avalancheSpeed = avalancheStartSpeed;
+    }
+
+    private void Update()
+    {
+        if (avalancheActive == true)
+        {
+            Vector3 position = avalanche.localPosition;
+            position.z += avalancheSpeed * Time.deltaTime;
+            avalanche.localPosition = position;
+            avalancheSpeed += avalancheAcceleration * Time.deltaTime * Time.deltaTime;
+        }
     }
 
     /* ======================================================================================================================== */
@@ -112,6 +131,7 @@ public class MountainGenerator : MonoBehaviour
         meshFilters = new List<MeshFilter>();
         meshes = new List<Mesh>();
         
+        AddTile(false);
         AddTile(false);
         AddTile();
         AddTile();
@@ -194,11 +214,15 @@ public class MountainGenerator : MonoBehaviour
 
     public void RemoveTile()
     {
-        // meshFilters[0].gameObject.SetActive(false);
         GameObject mesh = meshFilters[0].gameObject;
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
         Destroy(mesh);
+    }
+
+    public void ActivateAvalanche()
+    {
+        avalancheActive = true;
     }
 
     /* ======================================================================================================================== */
