@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PXR_PlatformSetting
   m_EditorClassIdentifier: 
   entitlementCheckSimulation: 0
-  startTimeEntitlementCheck: 0
-  appID: 
+  startTimeEntitlementCheck: 1
+  appID: 3469637e0fbb46af8d644dc1c02b08b5
   deviceSN: []
