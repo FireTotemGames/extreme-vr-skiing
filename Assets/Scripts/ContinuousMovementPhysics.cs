@@ -67,12 +67,10 @@ public class ContinuousMovementPhysics : MonoBehaviour
         Vector3 steeringForce = Vector3.right * steeringFactor * (leftHandSteering + rightHandSteering) / 2f;
         if (leftHandSteering > 0.1f && rightHandSteering > 0.1f)
         {
-            Debug.Log("Steer Right");
             rb.AddForce(steeringForce);
         }
         else if (leftHandSteering < -0.1 && rightHandSteering < -0.1f)
         {
-            Debug.Log("Steer Left");
             rb.AddForce(steeringForce);
         }
 
@@ -81,7 +79,8 @@ public class ContinuousMovementPhysics : MonoBehaviour
         rb.AddForce(decelerationForce, ForceMode.Force);
 
         if (leftHand.localPosition.y < racingHeightThreshold && rightHand.localPosition.y < racingHeightThreshold &&
-            leftHand.localRotation.eulerAngles.x > racingAngleThreshold && rightHand.localRotation.eulerAngles.x > racingAngleThreshold)
+            Vector3.Dot(skiStickLeft.up, Vector3.forward) > 0.5f && Vector3.Dot(skiStickRight.up, Vector3.forward) > 0.5f)
+            // leftHand.localRotation.eulerAngles.x > racingAngleThreshold && rightHand.localRotation.eulerAngles.x > racingAngleThreshold)
         {   
             Vector3 racingForce = Quaternion.Euler(15f, 0f, 0f) * Vector3.forward * racingBoost;
             rb.AddForce(racingForce, ForceMode.Force);
