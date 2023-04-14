@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,7 +21,6 @@ public class ContinuousMovementPhysics : MonoBehaviour
     [SerializeField] private float decelerationFactor;
     [SerializeField] private float racingBoost;
     [SerializeField] private float racingHeightThreshold = 0.9f;
-    [SerializeField] private float racingAngleThreshold = 50f;
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
     [SerializeField] private Transform skiStickLeft;
@@ -86,6 +86,15 @@ public class ContinuousMovementPhysics : MonoBehaviour
             rb.AddForce(racingForce, ForceMode.Force);
         }
     }
+
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Obstacle") == true)
+    //     {
+    //         Debug.Log("Collision");
+    //         MusicController.Instance.PlaySound("event:/sounds/collisionTree");
+    //     }
+    // }
 
     /* ======================================================================================================================== */
     /* COROUTINES                                                                                                               */

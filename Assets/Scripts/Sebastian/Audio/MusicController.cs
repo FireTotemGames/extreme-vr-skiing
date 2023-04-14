@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FMOD.Studio;
 using FMODUnity;
 using Unity.VisualScripting;
@@ -101,10 +102,22 @@ public class MusicController : MonoBehaviour
         EventInstance eventInstance = RuntimeManager.CreateInstance(soundName);
         eventInstance.start();
     }
+    
+    public void PlaySound(string soundName, float delay)
+    {
+        StartCoroutine(PlaySoundDelayed(soundName, delay));
+    }
 
     public void PlaySoundNoReturn(string soundName)
     {
         PlaySound(soundName);
+    }
+
+    private IEnumerator PlaySoundDelayed(string soundName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EventInstance eventInstance = RuntimeManager.CreateInstance(soundName);
+        eventInstance.start();
     }
     
     /* ======================================================================================================================== */

@@ -112,6 +112,7 @@ public class MountainGenerator : MonoBehaviour
         
         AddTile(false);
         AddTile();
+        AddTile();
     }
     
     private void SpawnTrees()

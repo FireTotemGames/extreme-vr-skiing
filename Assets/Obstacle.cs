@@ -1,28 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileTrigger : MonoBehaviour
+public class Obstacle : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
+    [SerializeField] private float hitForce;
+    public float HitForce => hitForce;
+    
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") == false)
-        {
-            return;
-        }
-        
-        MountainGenerator.Instance.RemoveTile();
-        MountainGenerator.Instance.AddTile();
-    }
 
     /* ======================================================================================================================== */
     /* COROUTINES                                                                                                               */
@@ -44,4 +35,5 @@ public class TileTrigger : MonoBehaviour
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
 
+   
 }

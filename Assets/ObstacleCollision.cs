@@ -3,25 +3,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileTrigger : MonoBehaviour
+public class ObstacleCollision : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private float minVelocity;
+    [SerializeField] private float collisionCooldown;
+
+    private float collisionTimer;
+
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
+    private void Update()
+    {
+        collisionTimer -= Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") == false)
+        if (other.CompareTag("Obstacle") == true)
         {
-            return;
+            if (collisionTimer <= 0f && rb.velocity.magnitude > minVelocity)
+            {
+                collisionTimer = collisionCooldown;
+                Vector3 hitForce = other.GetComponent<Obstacle>().HitForce * Vector3.back;
+                rb.AddForce(hitForce, ForceMode.Impulse);
+                MusicController.Instance.PlaySound("event:/sounds/collisionTree");
+                MusicController.Instance.PlaySound("event:/sounds/ouch", 0.2f);
+            }
         }
-        
-        MountainGenerator.Instance.RemoveTile();
-        MountainGenerator.Instance.AddTile();
     }
 
     /* ======================================================================================================================== */
