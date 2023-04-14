@@ -152,6 +152,7 @@ public class MountainGenerator : MonoBehaviour
         GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
         //tile.transform.rotation = Quaternion.Euler(0, 0, 180);
         tile.transform.parent = transform;
+        tile.layer = LayerMask.NameToLayer("Ground");
 
         MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
@@ -182,7 +183,7 @@ public class MountainGenerator : MonoBehaviour
         Vector3 rampPosition = new Vector3();
         rampPosition.x = Random.Range(-20f, 20f);
         rampPosition.z = Random.Range(height / 6f, height * 5f / 6f);
-        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 0.5f;
+        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 0.3f;
         Instantiate(rampPrefab, rampPosition, Quaternion.Euler(5f, 0f, 0f), meshFilter.transform);
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);

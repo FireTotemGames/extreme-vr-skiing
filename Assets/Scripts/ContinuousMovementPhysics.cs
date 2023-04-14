@@ -25,6 +25,8 @@ public class ContinuousMovementPhysics : MonoBehaviour
     [SerializeField] private Transform rightHand;
     [SerializeField] private Transform skiStickLeft;
     [SerializeField] private Transform skiStickRight;
+    [SerializeField] private LayerMask whatIsGround;
+    
 
     private Vector2 inputMoveAxis;
     private float skiAngleY;
@@ -109,7 +111,7 @@ public class ContinuousMovementPhysics : MonoBehaviour
         Vector3 start = bodyCollider.transform.TransformPoint(bodyCollider.center);
         float rayLength = bodyCollider.height / 2f + 0.1f;
 
-        RaycastHit[] hit = Physics.RaycastAll(start, Vector3.down, rayLength);
+        RaycastHit[] hit = Physics.RaycastAll(start, Vector3.down, rayLength, whatIsGround);
         bool isGrounded = false;
         if (hit.Length > 0)
         {
