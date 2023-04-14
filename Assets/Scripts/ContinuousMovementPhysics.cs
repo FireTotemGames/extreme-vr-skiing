@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +17,12 @@ public class ContinuousMovementPhysics : MonoBehaviour
     [SerializeField] private float maxVelocity;
     [SerializeField] private float steeringFactor;
     [SerializeField] private Transform playerHead;
+    [SerializeField] private float decelerationFactor;
+    [SerializeField] private float racingBoost;
+    [SerializeField] private float racingHeightThreshold = 0.9f;
+    [SerializeField] private float racingAngleThreshold = 50f;
+    [SerializeField] private Transform leftHand;
+    [SerializeField] private Transform rightHand;
 
     private Vector2 inputMoveAxis;
     private float skiAngleY;
@@ -43,10 +46,6 @@ public class ContinuousMovementPhysics : MonoBehaviour
         Quaternion yaw = Quaternion.Euler(0f, directionSource.eulerAngles.y, 0f);
         Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0f, inputMoveAxis.y);
         rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);
-        // Vector3 velocity = rb.velocity;
-        // velocity.x = direction.x * speed;
-        // velocity.z = direction.z * speed;
-        // rb.velocity = velocity;
 
         rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
 
@@ -54,9 +53,19 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
         float roll = playerHead.rotation.z * Vector3.Dot(playerHead.forward, Vector3.forward);
         Vector3 steeringForce = Vector3.right * -roll * steeringFactor;
-        Debug.Log(steeringForce);
-        // rb.AddTorque(steeringForce, ForceMode.Force);
         rb.AddForce(steeringForce, ForceMode.Force);
+
+        float downhillAlignment = Vector3.Dot(Vector3.forward, rb.velocity.normalized);
+        Vector3 decelerationForce = -rb.velocity * (1f - downhillAlignment) * decelerationFactor;
+        rb.AddForce(decelerationForce, ForceMode.Force);
+
+        if (leftHand.localPosition.y < racingHeightThreshold && rightHand.localPosition.y < racingHeightThreshold &&
+            leftHand.localRotation.eulerAngles.x > racingAngleThreshold && rightHand.localRotation.eulerAngles.x > racingAngleThreshold)
+        {   
+            Debug.Log("Racing Boost");
+            Vector3 racingForce = Quaternion.Euler(15f, 0f, 0f) * Vector3.forward * racingBoost;
+            rb.AddForce(racingForce, ForceMode.Force);
+        }
     }
 
     /* ======================================================================================================================== */

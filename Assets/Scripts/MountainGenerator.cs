@@ -22,6 +22,7 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] private Material material;
     [SerializeField] private PhysicMaterial physicMaterial;
     [SerializeField] private GameObject tileTriggerPrefab;
+    [SerializeField] private GameObject invisibleWallPrefab;
 
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
@@ -140,8 +141,11 @@ public class MountainGenerator : MonoBehaviour
 
         if (generateTileTrigger == true)
         {
-            Instantiate(tileTriggerPrefab, Vector3.forward * height / 2f, Quaternion.identity, meshFilter.transform);
+            Instantiate(tileTriggerPrefab, Vector3.forward * height / 10f, Quaternion.identity, meshFilter.transform);
         }
+
+        Instantiate(invisibleWallPrefab, Vector3.right * width / 2f, quaternion.identity, meshFilter.transform);
+        Instantiate(invisibleWallPrefab, -Vector3.right * width / 2f, quaternion.identity, meshFilter.transform);
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);
         tile.transform.localRotation = Quaternion.identity;
