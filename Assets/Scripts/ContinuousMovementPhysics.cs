@@ -17,7 +17,10 @@ public class ContinuousMovementPhysics : MonoBehaviour
     [SerializeField] private CapsuleCollider bodyCollider;
     [SerializeField] private Transform skiLeft;
     [SerializeField] private Transform skiRight;
-    
+    [SerializeField] private float maxVelocity;
+    [SerializeField] private float steeringFactor;
+    [SerializeField] private Transform playerHead;
+
     private Vector2 inputMoveAxis;
     private float skiAngleY;
     
@@ -45,7 +48,15 @@ public class ContinuousMovementPhysics : MonoBehaviour
         // velocity.z = direction.z * speed;
         // rb.velocity = velocity;
 
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxVelocity);
+
         RotateSkies();
+
+        float roll = playerHead.rotation.z * Vector3.Dot(playerHead.forward, Vector3.forward);
+        Vector3 steeringForce = Vector3.right * -roll * steeringFactor;
+        Debug.Log(steeringForce);
+        // rb.AddTorque(steeringForce, ForceMode.Force);
+        rb.AddForce(steeringForce, ForceMode.Force);
     }
 
     /* ======================================================================================================================== */
@@ -67,12 +78,20 @@ public class ContinuousMovementPhysics : MonoBehaviour
             if (rb.velocity.magnitude > 0.1f)
             {
                 skiAngleY = Mathf.Atan2(rb.velocity.z, -rb.velocity.x) * Mathf.Rad2Deg - 90f;
-                // skiLeft.rotation = Quaternion.Euler(0f, skiAngleY, 0f);
-                // skiRight.rotation = Quaternion.Euler(0f, skiAngleY, 0f);
             }
-            
-            skiLeft.rotation = Quaternion.Lerp(skiLeft.rotation, Quaternion.Euler(0f, skiAngleY, 0f) * Quaternion.FromToRotation(transform.up, hit[0].normal), 0.5f) * transform.rotation;
-            skiRight.rotation =  Quaternion.Lerp(skiRight.rotation,Quaternion.Euler(0f, skiAngleY, 0f) * Quaternion.FromToRotation(transform.up, hit[0].normal), 0.5f) * transform.rotation;
+            else
+            {
+                skiAngleY = 0f;
+            }
+
+            skiLeft.rotation =
+                Quaternion.Lerp(skiLeft.rotation,
+                    Quaternion.Euler(0f, skiAngleY, 0f) * Quaternion.FromToRotation(transform.up, hit[0].normal), 0.5f)
+                * transform.rotation;
+            skiRight.rotation =
+                Quaternion.Lerp(skiRight.rotation,
+                    Quaternion.Euler(0f, skiAngleY, 0f) * Quaternion.FromToRotation(transform.up, hit[0].normal), 0.5f)
+                * transform.rotation;
         }
     }
     
