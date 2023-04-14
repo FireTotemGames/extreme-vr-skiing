@@ -58,6 +58,14 @@ public class ContinuousMovementPhysics : MonoBehaviour
         float downhillAlignment = Vector3.Dot(Vector3.forward, rb.velocity.normalized);
         Vector3 decelerationForce = -rb.velocity * (1f - downhillAlignment) * decelerationFactor;
         rb.AddForce(decelerationForce, ForceMode.Force);
+
+        if (leftHand.localPosition.y < racingHeightThreshold && rightHand.localPosition.y < racingHeightThreshold &&
+            leftHand.localRotation.eulerAngles.x > racingAngleThreshold && rightHand.localRotation.eulerAngles.x > racingAngleThreshold)
+        {   
+            Debug.Log("Racing Boost");
+            Vector3 racingForce = Quaternion.Euler(15f, 0f, 0f) * Vector3.forward * racingBoost;
+            rb.AddForce(racingForce, ForceMode.Force);
+        }
     }
 
     /* ======================================================================================================================== */

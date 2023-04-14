@@ -302,11 +302,11 @@ MonoBehaviour:
   steeringFactor: 100
   playerHead: {fileID: 1080642779}
   decelerationFactor: 5
-  racingBoost: 100
+  racingBoost: 25
   racingHeightThreshold: 0.9
   racingAngleThreshold: 50
-  leftHand: {fileID: 0}
-  rightHand: {fileID: 0}
+  leftHand: {fileID: 499253581}
+  rightHand: {fileID: 885877199}
 --- !u!1 &245304218
 GameObject:
   m_ObjectHideFlags: 0
