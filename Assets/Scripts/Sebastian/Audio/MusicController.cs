@@ -188,6 +188,14 @@ public class MusicController : MonoBehaviour
         Instance.musicList.music.stop(STOP_MODE.ALLOWFADEOUT);
     }
 
+    public void IncrementProgressParameter()
+    {
+        Instance.musicList.music.getParameterByName("progress", out float value);
+        value++;
+        Instance.musicList.music.setParameterByName("progress", value);
+        Debug.Log(value);
+    }
+
     /* ======================================================================================================================== */
     /* SNAPSHOT FUNCTIONS                                                                                                       */
     /* ======================================================================================================================== */

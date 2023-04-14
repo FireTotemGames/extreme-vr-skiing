@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -26,10 +27,11 @@ public class ContinuousMovementPhysics : MonoBehaviour
     [SerializeField] private Transform skiStickLeft;
     [SerializeField] private Transform skiStickRight;
     [SerializeField] private LayerMask whatIsGround;
-    
+    [SerializeField] private float jumpSoundThreshold;
 
     private Vector2 inputMoveAxis;
     private float skiAngleY;
+    private float jumpTimer;
     
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
@@ -61,9 +63,16 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
         if (isGrounded == false)
         {
+            jumpTimer += Time.fixedDeltaTime;
             return;
         }
+
+        if (jumpTimer > jumpSoundThreshold)
+        {
+            MusicController.Instance.PlaySound("event:/sounds/land");
+        }
         
+        jumpTimer = 0f;
         float leftHandSteering = Vector3.Dot(skiStickLeft.up, Vector3.right);
         float rightHandSteering = Vector3.Dot(skiStickRight.up, Vector3.right);
         Vector3 steeringForce = Vector3.right * steeringFactor * (leftHandSteering + rightHandSteering) / 2f;
