@@ -23,6 +23,7 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] private PhysicMaterial physicMaterial;
     [SerializeField] private GameObject tileTriggerPrefab;
     [SerializeField] private GameObject invisibleWallPrefab;
+    [SerializeField] private GameObject rampPrefab;
 
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
@@ -98,14 +99,12 @@ public class MountainGenerator : MonoBehaviour
         meshes.Last().triangles = triangles;
     }
 
-    void UpdateMesh()
+    private void UpdateMesh()
     {
         meshes.Last().RecalculateNormals();
         meshFilters.Last().mesh = meshes.Last();
     }
-    /* ======================================================================================================================== */
-    /* PUBLIC FUNCTIONS                                                                                                         */
-    /* ======================================================================================================================== */
+    
     private void GenerateTerrain()
     {
         meshFilters = new List<MeshFilter>();
@@ -114,6 +113,36 @@ public class MountainGenerator : MonoBehaviour
         AddTile(false);
         AddTile();
     }
+    
+    private void SpawnTrees()
+    {
+        Transform treeContainer = new GameObject("TreeContainer").transform;
+        treeContainer.transform.parent = meshFilters.Last().transform;
+        
+        for (int i = 0; i < numberOfTrees; i++)
+        {
+            Vector3 randomPosition = new Vector3();
+            float x;
+            float z = randomPosition.z = tilesZ * height + Random.Range(0, height);
+    
+            do
+            {
+                x = Random.Range(-1f, 1f);
+            } while (Random.Range(0f, 1f) > probabilityCurve.Evaluate(Mathf.Abs(x)));
+            
+            randomPosition.x = x * gaussWidth;
+            randomPosition.z = z;
+            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
+    
+            Quaternion treeRotation = Quaternion.Euler(-slopeAngle, 0f ,0f);
+            randomPosition.z -= tilesZ * height;
+            Instantiate(tree, randomPosition, treeRotation, treeContainer);
+        }
+    }
+    
+    /* ======================================================================================================================== */
+    /* PUBLIC FUNCTIONS                                                                                                         */
+    /* ======================================================================================================================== */
 
     public void AddTile(bool generateTileTrigger = true)
     {
@@ -144,8 +173,14 @@ public class MountainGenerator : MonoBehaviour
             Instantiate(tileTriggerPrefab, Vector3.forward * height / 10f, Quaternion.identity, meshFilter.transform);
         }
 
-        Instantiate(invisibleWallPrefab, Vector3.right * width / 2f, quaternion.identity, meshFilter.transform);
-        Instantiate(invisibleWallPrefab, -Vector3.right * width / 2f, quaternion.identity, meshFilter.transform);
+        Instantiate(invisibleWallPrefab, new Vector3(width / 2f, 0f, height / 2f), quaternion.identity, meshFilter.transform);
+        Instantiate(invisibleWallPrefab, new Vector3(-width / 2f, 0f, height / 2f), Quaternion.identity, meshFilter.transform);
+
+        Vector3 rampPosition = new Vector3();
+        rampPosition.x = Random.Range(-20f, 20f);
+        rampPosition.z = Random.Range(height / 6f, height * 5f / 6f);
+        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 1f;
+        Instantiate(rampPrefab, rampPosition, Quaternion.identity, meshFilter.transform);
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);
         tile.transform.localRotation = Quaternion.identity;
@@ -160,30 +195,6 @@ public class MountainGenerator : MonoBehaviour
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
         Destroy(mesh);
-        
-    }
-
-    private void SpawnTrees()
-    {
-        for (int i = 0; i < numberOfTrees; i++)
-        {
-            Vector3 randomPosition = new Vector3();
-            float x;
-            float z = randomPosition.z = tilesZ * height + Random.Range(0, height);
-    
-            do
-            {
-                x = Random.Range(-1f, 1f);
-            } while (Random.Range(0f, 1f) > probabilityCurve.Evaluate(Mathf.Abs(x)));
-            
-            randomPosition.x = x * gaussWidth;
-            randomPosition.z = z;
-            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
-    
-            Quaternion treeRotation = Quaternion.Euler(-slopeAngle, 0f ,0f);
-            randomPosition.z -= tilesZ * height;
-            Instantiate(tree, randomPosition, treeRotation, meshFilters.Last().transform);
-        }
     }
 
     /* ======================================================================================================================== */

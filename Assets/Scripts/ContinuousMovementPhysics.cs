@@ -62,7 +62,6 @@ public class ContinuousMovementPhysics : MonoBehaviour
         if (leftHand.localPosition.y < racingHeightThreshold && rightHand.localPosition.y < racingHeightThreshold &&
             leftHand.localRotation.eulerAngles.x > racingAngleThreshold && rightHand.localRotation.eulerAngles.x > racingAngleThreshold)
         {   
-            Debug.Log("Racing Boost");
             Vector3 racingForce = Quaternion.Euler(15f, 0f, 0f) * Vector3.forward * racingBoost;
             rb.AddForce(racingForce, ForceMode.Force);
         }
