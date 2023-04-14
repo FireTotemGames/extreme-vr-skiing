@@ -17,8 +17,9 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] float heightMultiplier = 5.0f;
     [SerializeField] int tilesX = 2;
     [SerializeField] int tilesZ = 2;
-    [SerializeField] Material material;
-
+    [SerializeField] private Material material;
+    [SerializeField] private PhysicMaterial physicMaterial;
+    
     private List<MeshFilter> meshFilters;
     private List<Mesh> meshes;
     
@@ -128,6 +129,7 @@ public class MountainGenerator : MonoBehaviour
 
         MeshCollider meshCollider = tile.AddComponent<MeshCollider>();
         meshCollider.sharedMesh = meshes[tilesZ];
+        meshCollider.material = physicMaterial;
 
         SpawnTrees();
         //GenerateGaussianGrid();
