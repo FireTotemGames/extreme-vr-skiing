@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Sebastian/Playground_Sebastian.unity
     guid: 3b05c015f052f114e899ea8abf53f30f
   m_configObjects:
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: bdf80f55f12cd4f428fcc5745fdbc9d0,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c4ad5e190f1ff4d46aa6fbf778855930,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 2d6ed818c02d4cb48b310ffca55fd710,

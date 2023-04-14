@@ -15,6 +15,7 @@
     "com.unity.xr.interaction.toolkit": "2.2.0",
     "com.unity.xr.management": "4.2.1",
     "com.unity.xr.openxr": "1.6.0",
+    "com.unity.xr.picoxr": "file:D:/owncloud/projects/Unity/Pico Stuff/PICO Unity IntegrationSDK-214-20230302",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
