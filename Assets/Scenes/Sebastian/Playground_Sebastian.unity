@@ -298,6 +298,9 @@ MonoBehaviour:
   bodyCollider: {fileID: 566913097}
   skiLeft: {fileID: 444214323}
   skiRight: {fileID: 337848932}
+  maxVelocity: 50
+  steeringFactor: 200
+  playerHead: {fileID: 1080642779}
 --- !u!1 &245304218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,13 +1538,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 100
-  height: 100
-  scale: 10
+  height: 200
+  scale: 3
   heightMultiplier: 5
-  tilesX: 1
   tilesZ: 0
   material: {fileID: 2100000, guid: f04309efb8f197d48b23d05462d8df59, type: 2}
   physicMaterial: {fileID: 13400000, guid: 11a0b1629da5818489c001f790e47485, type: 2}
+  tileTriggerPrefab: {fileID: 6679618406350910996, guid: 02decd251bebbfd40bd68ffcacacdf91,
+    type: 3}
   numberOfTrees: 100
   gaussWidth: 50
   tree: {fileID: 192044, guid: 9d96413a50b1a8f4dbe194c1cc209a56, type: 3}
