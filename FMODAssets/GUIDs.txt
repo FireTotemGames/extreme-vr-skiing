@@ -12,7 +12,7 @@
 {51990c3d-2bf5-4cda-ad5b-01c1bf71ad28} event:/sounds/cow
 {207cc5d5-3794-4b7f-9ea1-334862b1c31c} event:/sounds/crash
 {9f7a135d-1fd5-4a52-b7ad-458f2f7c1648} event:/sounds/jump
-{43d7492a-73c3-4616-8536-204129c4a741} event:/sounds/land3D
+{43d7492a-73c3-4616-8536-204129c4a741} event:/sounds/land
 {a434a77f-702f-4e8f-9893-f17dc55df528} event:/sounds/ouch
 {01eebdcc-f8b9-4cfe-8d6e-16cbcfe1e859} event:/sounds/progress
 {aaa5dfe4-b7f3-4653-a7b0-4ed9816d6e32} event:/sounds/push3D
