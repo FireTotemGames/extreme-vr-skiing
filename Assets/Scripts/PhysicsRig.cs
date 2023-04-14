@@ -36,11 +36,11 @@ public class PhysicsRig : MonoBehaviour
         bodyCollider.center =
             new Vector3(playerHead.localPosition.x, bodyCollider.height / 2f, playerHead.localPosition.z);
         
-        leftHandJoint.targetPosition = leftController.localPosition;
-        leftHandJoint.targetRotation = leftController.localRotation;
+        leftHandJoint.targetPosition = leftController.position;
+        leftHandJoint.targetRotation = leftController.rotation;
         
-        rightHandJoint.targetPosition = rightController.localPosition;
-        rightHandJoint.targetRotation = rightController.localRotation;
+        rightHandJoint.targetPosition = rightController.position;
+        rightHandJoint.targetRotation = rightController.rotation;
 
         headJoint.targetPosition = playerHead.localPosition;
         headJoint.targetRotation = playerHead.localRotation;
