@@ -22,6 +22,10 @@ public class MountainGenerator : MonoBehaviour
     private List<Mesh> meshes;
     
     private float timer;
+
+    public int gaussianOffset = 3;
+    public int gaussianWidth = 10;
+    public float edgeRadius = 40f;
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
@@ -122,7 +126,7 @@ public class MountainGenerator : MonoBehaviour
         meshCollider.sharedMesh = meshes[tilesZ];
 
         SpawnTrees();
-        
+        //GenerateGaussianGrid();
         tilesZ++;
     }
 
@@ -147,6 +151,7 @@ public class MountainGenerator : MonoBehaviour
         }
         
     }
+
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
     /* ======================================================================================================================== */
