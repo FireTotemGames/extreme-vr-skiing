@@ -99,14 +99,12 @@ public class MountainGenerator : MonoBehaviour
         meshes.Last().triangles = triangles;
     }
 
-    void UpdateMesh()
+    private void UpdateMesh()
     {
         meshes.Last().RecalculateNormals();
         meshFilters.Last().mesh = meshes.Last();
     }
-    /* ======================================================================================================================== */
-    /* PUBLIC FUNCTIONS                                                                                                         */
-    /* ======================================================================================================================== */
+    
     private void GenerateTerrain()
     {
         meshFilters = new List<MeshFilter>();
@@ -115,6 +113,36 @@ public class MountainGenerator : MonoBehaviour
         AddTile(false);
         AddTile();
     }
+    
+    private void SpawnTrees()
+    {
+        Transform treeContainer = new GameObject("TreeContainer").transform;
+        treeContainer.transform.parent = meshFilters.Last().transform;
+        
+        for (int i = 0; i < numberOfTrees; i++)
+        {
+            Vector3 randomPosition = new Vector3();
+            float x;
+            float z = randomPosition.z = tilesZ * height + Random.Range(0, height);
+    
+            do
+            {
+                x = Random.Range(-1f, 1f);
+            } while (Random.Range(0f, 1f) > probabilityCurve.Evaluate(Mathf.Abs(x)));
+            
+            randomPosition.x = x * gaussWidth;
+            randomPosition.z = z;
+            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
+    
+            Quaternion treeRotation = Quaternion.Euler(-slopeAngle, 0f ,0f);
+            randomPosition.z -= tilesZ * height;
+            Instantiate(tree, randomPosition, treeRotation, treeContainer);
+        }
+    }
+    
+    /* ======================================================================================================================== */
+    /* PUBLIC FUNCTIONS                                                                                                         */
+    /* ======================================================================================================================== */
 
     public void AddTile(bool generateTileTrigger = true)
     {
@@ -167,33 +195,6 @@ public class MountainGenerator : MonoBehaviour
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
         Destroy(mesh);
-        
-    }
-
-    private void SpawnTrees()
-    {
-        Transform treeContainer = new GameObject("TreeContainer").transform;
-        treeContainer.transform.parent = meshFilters.Last().transform;
-        
-        for (int i = 0; i < numberOfTrees; i++)
-        {
-            Vector3 randomPosition = new Vector3();
-            float x;
-            float z = randomPosition.z = tilesZ * height + Random.Range(0, height);
-    
-            do
-            {
-                x = Random.Range(-1f, 1f);
-            } while (Random.Range(0f, 1f) > probabilityCurve.Evaluate(Mathf.Abs(x)));
-            
-            randomPosition.x = x * gaussWidth;
-            randomPosition.z = z;
-            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
-    
-            Quaternion treeRotation = Quaternion.Euler(-slopeAngle, 0f ,0f);
-            randomPosition.z -= tilesZ * height;
-            Instantiate(tree, randomPosition, treeRotation, treeContainer);
-        }
     }
 
     /* ======================================================================================================================== */
