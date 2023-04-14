@@ -4,6 +4,7 @@
 {cf1189c2-ab17-4539-8f3a-e5e843509acb} bus:/Reverb
 {872ec416-a200-4114-9443-a6191e251cb5} bus:/music
 {5c834bab-f314-44dc-bdbe-b9066f396413} bus:/sounds
+{c32e8b81-e341-46a0-b7b1-2e2b02804ec3} bus:/sounds/avalanche
 {6cf3a6dd-a9ca-4026-982d-c2ec9c036149} event:/music/main
 {5ef6dfad-bf5d-4bef-9943-0e4a071d0fd4} event:/sounds/avalancheLoop3D
 {a7d06e62-f036-477e-aca9-fb1e002d0b02} event:/sounds/carving
