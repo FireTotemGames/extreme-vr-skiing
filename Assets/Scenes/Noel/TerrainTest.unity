@@ -496,10 +496,8 @@ MonoBehaviour:
   tilesZ: 0
   material: {fileID: 2100000, guid: c964be80feaf98b48aa98247b0d96710, type: 2}
   treePrefab: {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
-  gridSize: 10
-  mean: 0
-  standardDeviation: 20
-  threshold: 0.1
+  gaussianOffset: 0
+  gaussianWidth: 10
 --- !u!4 &1458225253
 Transform:
   m_ObjectHideFlags: 0
