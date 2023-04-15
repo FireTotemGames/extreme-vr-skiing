@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4775219554002278}
   - component: {fileID: 4859683942393197093}
-  m_Layer: 0
+  - component: {fileID: 7799896817731958655}
+  - component: {fileID: 5393468459959254492}
+  m_Layer: 7
   m_Name: LowPoly - FirTree A
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +50,36 @@ MonoBehaviour:
   minScale: 0.25
   maxScale: 0.4
   hitForce: 20
+--- !u!136 &7799896817731958655
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069289201138886}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.42595884
+  m_Height: 5.5882463
+  m_Direction: 1
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!54 &5393468459959254492
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069289201138886}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &574250835198488570
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,9 +91,7 @@ GameObject:
   - component: {fileID: 7221950983864958000}
   - component: {fileID: 3342891775502521243}
   - component: {fileID: 1902900540791919013}
-  - component: {fileID: 3789601419969259691}
-  - component: {fileID: 1444365964850954284}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LowPoly - FirTree A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +141,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a8f9a878cb7cff45b00339938d945ce, type: 2}
-  - {fileID: 2100000, guid: 138b35dd321622a4d93635b532ae8b8e, type: 2}
+  - {fileID: 2100000, guid: ec4afc85c479f8947ae583132e380e94, type: 2}
+  - {fileID: 2100000, guid: bdebbea3ca3bd5342a3e2afed6555077, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,33 +164,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3789601419969259691
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574250835198488570}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.42595884
-  m_Height: 5.5882463
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.0000007947285, z: 2.6558616}
---- !u!54 &1444365964850954284
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 574250835198488570}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0

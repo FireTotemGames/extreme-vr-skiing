@@ -9,9 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8288228434911574646}
-  m_Layer: 0
+  - component: {fileID: 4193861350781140326}
+  - component: {fileID: 8905598888304988774}
+  - component: {fileID: 4456194898260672319}
+  m_Layer: 7
   m_Name: StoneBig
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4992178098961650452}
-  m_LocalRotation: {x: 0.7493605, y: -0, z: -0, w: 0.66216224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -31,7 +34,52 @@ Transform:
   - {fileID: 492431946379814254}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 97.07001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4193861350781140326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992178098961650452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2476b42e51d5264a850ea5092840c4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScale: 1
+  maxScale: 2
+  hitForce: 20
+--- !u!136 &8905598888304988774
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992178098961650452}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5813819
+  m_Height: 3.0260952
+  m_Direction: 0
+  m_Center: {x: 0.15, y: 0.12, z: -0.05}
+--- !u!54 &4456194898260672319
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992178098961650452}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &492431946379689966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,6 +90,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: c4f9c28a6050a9f46a1cd17e6b2d65e8, type: 3}
       propertyPath: m_Name
       value: rock03
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c4f9c28a6050a9f46a1cd17e6b2d65e8, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c4f9c28a6050a9f46a1cd17e6b2d65e8, type: 3}
       propertyPath: m_RootOrder
@@ -90,7 +142,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: c4f9c28a6050a9f46a1cd17e6b2d65e8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f04309efb8f197d48b23d05462d8df59, type: 2}
+      objectReference: {fileID: 2100000, guid: 3f177ee5432701c4a9345401e760e628, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4f9c28a6050a9f46a1cd17e6b2d65e8, type: 3}
 --- !u!4 &492431946379814254 stripped
