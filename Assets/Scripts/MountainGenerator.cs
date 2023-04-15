@@ -140,9 +140,9 @@ public class MountainGenerator : MonoBehaviour
         meshes = new List<Mesh>();
         
         AddTile(false);
-        AddTile(false);
+//        AddTile(false);
         AddTile();
-        AddTile();
+//        AddTile();
     }
     
     private void SpawnTrees()
