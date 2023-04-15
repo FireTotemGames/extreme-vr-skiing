@@ -11,6 +11,7 @@
 {95888ee0-f049-4e31-a25f-0d67eb168a89} event:/sounds/collisionTree
 {51990c3d-2bf5-4cda-ad5b-01c1bf71ad28} event:/sounds/cow
 {207cc5d5-3794-4b7f-9ea1-334862b1c31c} event:/sounds/crash
+{8bcedc30-69eb-4931-ab1e-e07aa8e0f5db} event:/sounds/danger
 {9f7a135d-1fd5-4a52-b7ad-458f2f7c1648} event:/sounds/jump
 {43d7492a-73c3-4616-8536-204129c4a741} event:/sounds/land
 {a434a77f-702f-4e8f-9893-f17dc55df528} event:/sounds/ouch
@@ -19,4 +20,5 @@
 {0d6d4176-03f7-43c1-9032-3cc12b2d605f} event:/sounds/stormLoop
 {9e52767d-7ac2-435d-8797-faa2fb023f61} parameter:/intensity
 {830b0995-57dd-4356-ae03-e007f498c27c} parameter:/progress
+{acea4548-6703-4872-9ce7-f774c8d2bd10} parameter:/speed
 {8675d063-ee51-4dfa-aec2-7e36f2db8928} snapshot:/pause
