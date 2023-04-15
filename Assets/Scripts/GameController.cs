@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
     public static GameController Instance;
 
     [SerializeField] private InputActionReference restartButton;
+    [SerializeField] private ParticleSystem snowStorm;
+    
 
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
@@ -63,6 +65,11 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
+
+    public void ActivateSnowStorm()
+    {
+        snowStorm.Play();
+    }
 
     public void GameOver()
     {

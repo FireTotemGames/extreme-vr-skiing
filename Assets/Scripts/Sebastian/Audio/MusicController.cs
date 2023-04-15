@@ -197,7 +197,10 @@ public class MusicController : MonoBehaviour
         Instance.musicList.music.getParameterByName("progress", out float value);
         value++;
         Instance.musicList.music.setParameterByName("progress", value);
-        Debug.Log(value);
+        if (value >= 4)
+        {
+            GameController.Instance.ActivateSnowStorm();
+        }
     }
 
     /* ======================================================================================================================== */
