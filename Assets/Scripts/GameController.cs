@@ -18,7 +18,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        
+        MusicController.Instance.StartMusic();
     }
 
     private void Update()

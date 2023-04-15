@@ -12,7 +12,12 @@ public class MountainGenerator : MonoBehaviour
     /* ======================================================================================================================== */
 
     public static MountainGenerator Instance;
-    
+
+    [Header("Avalanche")]
+    [SerializeField] private Transform avalanche;
+    [SerializeField] private float avalancheStartSpeed;
+    [SerializeField] private float avalancheAcceleration;
+
     [Header("Slope Generation")]
     [SerializeField] int width = 100;
     [SerializeField] int height = 100;
@@ -29,12 +34,16 @@ public class MountainGenerator : MonoBehaviour
     private List<Mesh> meshes;
     
     private float slopeAngle;
+    private bool avalancheActive;
+    private float avalancheSpeed;
 
     [Header("Gaussian Tree Distribution")]
     [SerializeField] private int numberOfTrees = 100;
     [SerializeField] private float gaussWidth = 50f;
     [SerializeField] private GameObject tree;
     [SerializeField] private AnimationCurve probabilityCurve;
+
+    public int Width => width;
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
@@ -55,6 +64,18 @@ public class MountainGenerator : MonoBehaviour
     {
         slopeAngle = transform.rotation.eulerAngles.x;
         GenerateTerrain();
+        avalancheSpeed = avalancheStartSpeed;
+    }
+
+    private void Update()
+    {
+        if (avalancheActive == true)
+        {
+            Vector3 position = avalanche.localPosition;
+            position.z += avalancheSpeed * Time.deltaTime;
+            avalanche.localPosition = position;
+            avalancheSpeed += avalancheAcceleration * Time.deltaTime * Time.deltaTime;
+        }
     }
 
     /* ======================================================================================================================== */
@@ -111,6 +132,8 @@ public class MountainGenerator : MonoBehaviour
         meshes = new List<Mesh>();
         
         AddTile(false);
+        AddTile(false);
+        AddTile();
         AddTile();
     }
     
@@ -149,6 +172,7 @@ public class MountainGenerator : MonoBehaviour
         GameObject tile = new GameObject("Tile_" + 0f + "_" + tilesZ);
         //tile.transform.rotation = Quaternion.Euler(0, 0, 180);
         tile.transform.parent = transform;
+        tile.layer = LayerMask.NameToLayer("Ground");
 
         MeshFilter meshFilter = tile.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = tile.AddComponent<MeshRenderer>();
@@ -179,8 +203,8 @@ public class MountainGenerator : MonoBehaviour
         Vector3 rampPosition = new Vector3();
         rampPosition.x = Random.Range(-20f, 20f);
         rampPosition.z = Random.Range(height / 6f, height * 5f / 6f);
-        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 1f;
-        Instantiate(rampPrefab, rampPosition, Quaternion.identity, meshFilter.transform);
+        rampPosition.y = Mathf.PerlinNoise(rampPosition.x / width * scale, (tilesZ * height + rampPosition.z) / height * scale) * heightMultiplier - 0.5f;
+        Instantiate(rampPrefab, rampPosition, Quaternion.Euler(0f, 0f, 0f), meshFilter.transform);
         
         tile.transform.localPosition = new Vector3(0, 0, tilesZ * height);
         tile.transform.localRotation = Quaternion.identity;
@@ -190,11 +214,15 @@ public class MountainGenerator : MonoBehaviour
 
     public void RemoveTile()
     {
-        // meshFilters[0].gameObject.SetActive(false);
         GameObject mesh = meshFilters[0].gameObject;
         meshFilters.RemoveAt(0);
         meshes.RemoveAt(0);
         Destroy(mesh);
+    }
+
+    public void ActivateAvalanche()
+    {
+        avalancheActive = true;
     }
 
     /* ======================================================================================================================== */

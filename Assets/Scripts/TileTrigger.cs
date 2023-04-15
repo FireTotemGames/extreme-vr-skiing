@@ -15,6 +15,11 @@ public class TileTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Player") == false)
+        {
+            return;
+        }
+        
         MountainGenerator.Instance.RemoveTile();
         MountainGenerator.Instance.AddTile();
     }
