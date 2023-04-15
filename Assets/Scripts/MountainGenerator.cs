@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class MountainGenerator : MonoBehaviour
@@ -39,8 +40,15 @@ public class MountainGenerator : MonoBehaviour
 
     [Header("Gaussian Tree Distribution")]
     [SerializeField] private int numberOfTrees = 100;
-    [SerializeField] private float gaussWidth = 50f;
-    [SerializeField] private GameObject tree;
+    [SerializeField] private float treeWidth = 50f;
+    [SerializeField] private Obstacle[] trees;
+    [SerializeField] private AnimationCurve probabilityCurveTree;
+
+    [Header("Stones")]
+    [SerializeField] private GameObject[] stonePrefabs;
+    [SerializeField] private int numberOfStones = 100;
+    [SerializeField] private float stoneWidth = 50f;
+    [SerializeField] private Obstacle[] stones;
     [SerializeField] private AnimationCurve probabilityCurve;
 
     public int Width => width;
@@ -151,15 +159,17 @@ public class MountainGenerator : MonoBehaviour
             do
             {
                 x = Random.Range(-1f, 1f);
-            } while (Random.Range(0f, 1f) > probabilityCurve.Evaluate(Mathf.Abs(x)));
+            } while (Random.Range(0f, 1f) > probabilityCurveTree.Evaluate(Mathf.Abs(x)));
             
-            randomPosition.x = x * gaussWidth;
+            randomPosition.x = x * treeWidth / 2f;
             randomPosition.z = z;
             randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
     
             Quaternion treeRotation = Quaternion.Euler(-slopeAngle, 0f ,0f);
             randomPosition.z -= tilesZ * height;
-            Instantiate(tree, randomPosition, treeRotation, treeContainer);
+            Obstacle treePrefab = trees[Random.Range(0, trees.Length)];
+            GameObject tree = Instantiate(treePrefab, randomPosition, treeRotation, treeContainer).gameObject;
+            tree.transform.localScale = Vector3.one * Random.Range(treePrefab.minScale, treePrefab.maxScale);
         }
     }
     

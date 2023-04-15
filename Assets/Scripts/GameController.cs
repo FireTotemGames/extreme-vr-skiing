@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
 
     private void Restart()
     {
+        MusicController.Instance.BusList.sound.stopAllEvents(STOP_MODE.IMMEDIATE);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 

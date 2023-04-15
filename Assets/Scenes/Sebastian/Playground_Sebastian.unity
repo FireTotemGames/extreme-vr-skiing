@@ -1692,8 +1692,44 @@ MonoBehaviour:
   rampPrefab: {fileID: 5760056311774051981, guid: 52af535f40a22e443ad0c7fc7972fa93,
     type: 3}
   numberOfTrees: 1000
-  gaussWidth: 100
-  tree: {fileID: 192044, guid: 9d96413a50b1a8f4dbe194c1cc209a56, type: 3}
+  treeWidth: 200
+  trees:
+  - {fileID: 2452079003452975848, guid: 6ba2ccd0cd3695644942e6fa363b0919, type: 3}
+  - {fileID: 4898590972028061001, guid: 6456790d9d9fa454ab10ed1f8a7f7299, type: 3}
+  - {fileID: 4859683942393197093, guid: f8f1b133600fc3948a1cebdc42382aa6, type: 3}
+  - {fileID: 8136946095562805945, guid: 71a9326ddbedbca44b00f9ba34d3392a, type: 3}
+  - {fileID: 2452079003452975848, guid: 6ba2ccd0cd3695644942e6fa363b0919, type: 3}
+  - {fileID: 2452079003452975848, guid: 6ba2ccd0cd3695644942e6fa363b0919, type: 3}
+  - {fileID: 4859683942393197093, guid: f8f1b133600fc3948a1cebdc42382aa6, type: 3}
+  - {fileID: 8136946095562805945, guid: 71a9326ddbedbca44b00f9ba34d3392a, type: 3}
+  probabilityCurveTree:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.8708191
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  stonePrefabs: []
+  numberOfStones: 100
+  stoneWidth: 50
+  stones: []
   probabilityCurve:
     serializedVersion: 2
     m_Curve:
@@ -4039,7 +4075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653306008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4786,5 +4822,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1209472663}
+    - target: {fileID: 8424965643212850654, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+        type: 3}
+      propertyPath: Params.Array.data[0].Value
+      value: 0.39
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6809f7e40c0c3c498869b05a34cfdc3, type: 3}

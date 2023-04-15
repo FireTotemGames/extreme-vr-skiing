@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1531299330541492459}
-  - component: {fileID: 1552261552103435891}
   m_Layer: 0
   m_Name: StoneSmall
   m_TagString: Untagged
@@ -33,24 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -262.871, y: 0, z: 0}
---- !u!114 &1552261552103435891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927129214597832915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 187534db087caee4ab9c42e536eab6f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minAmplitude: 0.2
-  maxAmplitude: 1
-  minSpeed: 1
-  maxSpeed: 3
-  minRotationSpeed: 360
-  maxRotationSpeed: 720
 --- !u!1001 &8042818215039398105
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 2300000, guid: 40eee6d5f6f994c478afdb774a87c9b1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7eebc8e282114bc478cfd8a49e26b7cb, type: 2}
+      objectReference: {fileID: 2100000, guid: f04309efb8f197d48b23d05462d8df59, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40eee6d5f6f994c478afdb774a87c9b1, type: 3}
 --- !u!4 &8042818215039003225 stripped
