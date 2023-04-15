@@ -112,6 +112,8 @@ MonoBehaviour:
   player: {fileID: 0}
   dangerSoundStartDistance: 50
   dangerSoundStopDistance: 70
+  fogParticles: {fileID: 2404926215282952712}
+  stoneContainer: {fileID: 2404926216038550459}
 --- !u!1 &2404926215282952717
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +164,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4934,7 +4936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2404926216038550459}
   m_Layer: 0
-  m_Name: Rocks
+  m_Name: Stones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5026,7 +5028,7 @@ MonoBehaviour:
   AllowNonRigidbodyDoppler: 0
   Params:
   - Name: intensity
-    Value: 1
+    Value: 0.39
   OverrideAttenuation: 1
   OverrideMinDistance: 20
   OverrideMaxDistance: 100
