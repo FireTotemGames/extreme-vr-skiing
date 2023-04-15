@@ -5024,7 +5024,9 @@ MonoBehaviour:
   TriggerOnce: 0
   Preload: 0
   AllowNonRigidbodyDoppler: 0
-  Params: []
+  Params:
+  - Name: intensity
+    Value: 1
   OverrideAttenuation: 1
   OverrideMinDistance: 20
   OverrideMaxDistance: 100

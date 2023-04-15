@@ -1,26 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FMODUnity;
 using UnityEngine;
 
-public class JumpTrigger : MonoBehaviour
+public class SkiStick : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
+    [SerializeField] private float minCollisionSpeed;
+    [SerializeField] private float cooldownTime;
+
+    private float timer;
+    private Rigidbody rb;
+    
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
+    private void Start()
+    {
+        timer = cooldownTime;
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") == true)
+        if (rb.velocity.magnitude < minCollisionSpeed || 
+            other.CompareTag("Ski Stick") == false || 
+            timer > 0f)
         {
-            MusicController.Instance.PlaySound("event:/sounds/jump");
-            MusicController.Instance.PlaySound("event:/sounds/jodel");
+            return;
         }
+        
+        MusicController.Instance.PlaySound("event:/sounds/metal_clap");
+        timer = cooldownTime;
     }
 
     /* ======================================================================================================================== */
