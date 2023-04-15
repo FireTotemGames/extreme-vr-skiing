@@ -49,7 +49,7 @@ public class MountainGenerator : MonoBehaviour
     [SerializeField] private int numberOfStones = 100;
     [SerializeField] private float stoneWidth = 50f;
     [SerializeField] private Obstacle[] stones;
-    [SerializeField] private AnimationCurve probabilityCurve;
+    [SerializeField] private AnimationCurve probabilityCurveStone;
 
     public int Width => width;
     /* ======================================================================================================================== */
@@ -173,6 +173,34 @@ public class MountainGenerator : MonoBehaviour
         }
     }
     
+    private void SpawnStones()
+    {
+        Transform stoneContainer = new GameObject("StoneContainer").transform;
+        stoneContainer.transform.parent = meshFilters.Last().transform;
+        
+        for (int i = 0; i < numberOfStones; i++)
+        {
+            Vector3 randomPosition = new Vector3();
+            float x;
+            float z = randomPosition.z = tilesZ * height + Random.Range(0, height);
+    
+            do
+            {
+                x = Random.Range(-1f, 1f);
+            } while (Random.Range(0f, 1f) > probabilityCurveStone.Evaluate(Mathf.Abs(x)));
+            
+            randomPosition.x = x * stoneWidth / 2f;
+            randomPosition.z = z;
+            randomPosition.y = Mathf.PerlinNoise(randomPosition.x / width * scale, randomPosition.z / height * scale) * heightMultiplier;
+    
+            Quaternion stoneRotation = Quaternion.Euler(0f, Random.Range(0f, 360f) ,0f);
+            randomPosition.z -= tilesZ * height;
+            Obstacle stonePrefab = stones[Random.Range(0, stones.Length)];
+            GameObject stone = Instantiate(stonePrefab, randomPosition, stoneRotation, stoneContainer).gameObject;
+            stone.transform.localScale = Vector3.one * Random.Range(stonePrefab.minScale, stonePrefab.maxScale);
+        }
+    }
+    
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
@@ -200,15 +228,15 @@ public class MountainGenerator : MonoBehaviour
         meshCollider.material = physicMaterial;
 
         SpawnTrees();
-        //GenerateGaussianGrid();
+        SpawnStones();
 
         if (generateTileTrigger == true)
         {
             Instantiate(tileTriggerPrefab, Vector3.forward * height / 10f, Quaternion.identity, meshFilter.transform);
         }
 
-        Instantiate(invisibleWallPrefab, new Vector3(width / 2f, 0f, height / 2f), quaternion.identity, meshFilter.transform);
-        Instantiate(invisibleWallPrefab, new Vector3(-width / 2f, 0f, height / 2f), Quaternion.identity, meshFilter.transform);
+        Instantiate(invisibleWallPrefab, new Vector3(width / 2f * 0.9f, 0f, height / 2f), quaternion.identity, meshFilter.transform);
+        Instantiate(invisibleWallPrefab, new Vector3(-width / 2f * 0.9f, 0f, height / 2f), Quaternion.identity, meshFilter.transform);
 
         Vector3 rampPosition = new Vector3();
         rampPosition.x = Random.Range(-20f, 20f);

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 23463164656403728}
   - component: {fileID: 3185513628443743006}
   - component: {fileID: 3750478208428383949}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: birchTree_leafless
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e85d88f441c91ca4c898a36c492940dc, type: 2}
+  - {fileID: 2100000, guid: ec4afc85c479f8947ae583132e380e94, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
