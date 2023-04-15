@@ -2,47 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class SkiStick : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
-    public static GameController Instance;
+    [SerializeField] private float minCollisionSpeed;
+    [SerializeField] private float cooldownTime;
 
-    [SerializeField] private InputActionReference restartButton;
-
+    private float timer;
+    private Rigidbody rb;
+    
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
-        MusicController.Instance.StartMusic();
+        timer = cooldownTime;
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        if (restartButton.action.WasPerformedThisFrame() == true)
+        timer -= Time.deltaTime;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (rb.velocity.magnitude < minCollisionSpeed || 
+            other.CompareTag("Ski Stick") == false || 
+            timer > 0f)
         {
-            Debug.Log("Restart");
-            Restart();
+            return;
         }
+        
+        MusicController.Instance.PlaySound("event:/sounds/metal_clap");
+        timer = cooldownTime;
     }
 
     /* ======================================================================================================================== */
@@ -53,19 +51,9 @@ public class GameController : MonoBehaviour
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
-
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-    }
 
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
@@ -74,4 +62,5 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
+
 }

@@ -1,47 +1,61 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-public class GameController : MonoBehaviour
+public class Avalanche : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
-    public static GameController Instance;
-
-    [SerializeField] private InputActionReference restartButton;
+    [SerializeField] private GameObject deathTrigger;
+    [SerializeField] private StudioEventEmitter avalancheSound;
+    [SerializeField] private Transform player;
+    [SerializeField] private float dangerSoundStartDistance;
+    [SerializeField] private float dangerSoundStopDistance;
+    
+    private EventInstance dangerSound;
+    private bool avalancheActive;
 
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
     private void Start()
     {
-        MusicController.Instance.StartMusic();
+        deathTrigger.SetActive(false);
+        dangerSound = RuntimeManager.CreateInstance("event:/sounds/danger");
     }
 
     private void Update()
     {
-        if (restartButton.action.WasPerformedThisFrame() == true)
+        if (avalancheActive == false)
         {
-            Debug.Log("Restart");
-            Restart();
+            return;
+        }
+
+        float distance = Mathf.Abs(transform.position.z - player.position.z);
+        if (distance < dangerSoundStartDistance)
+        {
+            dangerSound.getPlaybackState(out PLAYBACK_STATE state);
+            if (state != PLAYBACK_STATE.PLAYING)
+            {
+                Debug.Log("start danger sound");
+                dangerSound.start();
+            }
+
+            float speed = 1f - Mathf.Clamp01(distance / dangerSoundStartDistance);
+            dangerSound.setParameterByName("speed", speed);
+        }
+        else if (distance > dangerSoundStopDistance)
+        {
+            dangerSound.getPlaybackState(out PLAYBACK_STATE state);
+            if (state == PLAYBACK_STATE.PLAYING)
+            {
+                Debug.Log("stop danger sound");
+                dangerSound.stop(STOP_MODE.ALLOWFADEOUT);
+            }
         }
     }
 
@@ -53,18 +67,15 @@ public class GameController : MonoBehaviour
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
 
-    public void GameOver()
+    public void ActivateDeathTrigger()
     {
-        Debug.Log("Game Over");
+        avalancheActive = true;
+        deathTrigger.SetActive(true);
+        avalancheSound.Play();
     }
 
     /* ======================================================================================================================== */
@@ -74,4 +85,5 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
+
 }

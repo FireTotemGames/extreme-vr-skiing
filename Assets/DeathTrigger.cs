@@ -1,47 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
-public class GameController : MonoBehaviour
+public class DeathTrigger : MonoBehaviour
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
-    public static GameController Instance;
-
-    [SerializeField] private InputActionReference restartButton;
-
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
-    private void Awake()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Instance == null)
+        if (other.CompareTag("Player") == true)
         {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start()
-    {
-        MusicController.Instance.StartMusic();
-    }
-
-    private void Update()
-    {
-        if (restartButton.action.WasPerformedThisFrame() == true)
-        {
-            Debug.Log("Restart");
-            Restart();
+            GameController.Instance.GameOver();
         }
     }
 
@@ -53,19 +26,9 @@ public class GameController : MonoBehaviour
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
-    private void Restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
-
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-    }
 
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
@@ -74,4 +37,5 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
+
 }

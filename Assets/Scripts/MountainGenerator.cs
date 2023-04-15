@@ -14,7 +14,7 @@ public class MountainGenerator : MonoBehaviour
     public static MountainGenerator Instance;
 
     [Header("Avalanche")]
-    [SerializeField] private Transform avalanche;
+    [SerializeField] private Avalanche avalanche;
     [SerializeField] private float avalancheStartSpeed;
     [SerializeField] private float avalancheAcceleration;
 
@@ -71,9 +71,9 @@ public class MountainGenerator : MonoBehaviour
     {
         if (avalancheActive == true)
         {
-            Vector3 position = avalanche.localPosition;
+            Vector3 position = avalanche.transform.localPosition;
             position.z += avalancheSpeed * Time.deltaTime;
-            avalanche.localPosition = position;
+            avalanche.transform.localPosition = position;
             avalancheSpeed += avalancheAcceleration * Time.deltaTime * Time.deltaTime;
         }
     }
@@ -223,6 +223,7 @@ public class MountainGenerator : MonoBehaviour
     public void ActivateAvalanche()
     {
         avalancheActive = true;
+        avalanche.ActivateDeathTrigger();
     }
 
     /* ======================================================================================================================== */
