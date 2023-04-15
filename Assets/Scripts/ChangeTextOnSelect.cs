@@ -1,50 +1,52 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using FMOD.Studio;
+using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class GameController : MonoBehaviour
+public class ChangeTextOnSelect : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
     /* ======================================================================================================================== */
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
-
-    public static GameController Instance;
-
-    [SerializeField] private InputActionReference restartButton;
-    [SerializeField] private ParticleSystem snowStorm;
-    
+    [SerializeField] private Color textActive;
+    [SerializeField] private Color textIdle;
+    [SerializeField] private TextMeshProUGUI[] labels;
+    [SerializeField] private Image[] images;
 
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
 
-    private void Awake()
+    private void OnEnable()
     {
-        if (Instance == null)
+        if (EventSystem.current.currentSelectedGameObject == gameObject)
         {
-            Instance = this;
+            return;
         }
-        else
+        
+        for (int i = 0; i < labels.Length; i++)
         {
-            Destroy(gameObject);
+            labels[i].color = textIdle;
         }
-    }
-
-    private void Start()
-    {
-        MusicController.Instance.StartMusic();
+        
+        // for (int i = 0; i < images.Length; i++)
+        // {
+        //     images[i].color = textIdle;
+        // }
     }
 
     private void Update()
     {
-        if (restartButton.action.WasPerformedThisFrame() == true)
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            Debug.Log("Restart");
-            Restart();
+            ActiveColor();
+        }
+        else
+        {
+            InActiveColor();
         }
     }
 
@@ -56,25 +58,34 @@ public class GameController : MonoBehaviour
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
-    private void Restart()
+    private void ActiveColor()
     {
-        MusicController.Instance.BusList.sound.stopAllEvents(STOP_MODE.IMMEDIATE);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        for (int i = 0; i < labels.Length; i++)
+        {
+            labels[i].color = textActive;
+        }
+        
+        // for (int i = 0; i < images.Length; i++)
+        // {
+        //     images[i].color = textActive;
+        // }
     }
-
+    
+    private void InActiveColor()
+    {
+        for (int i = 0; i < labels.Length; i++)
+        {
+            labels[i].color = textIdle;
+        }
+        
+        // for (int i = 0; i < images.Length; i++)
+        // {
+        //     images[i].color = textIdle;
+        // }
+    }
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
-
-    public void ActivateSnowStorm()
-    {
-        snowStorm.Play();
-    }
-
-    public void GameOver()
-    {
-        Debug.Log("Game Over");
-    }
 
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
@@ -83,4 +94,14 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        ActiveColor();
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        InActiveColor();
+    }
 }
