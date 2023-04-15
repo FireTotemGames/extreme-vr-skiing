@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,11 +12,25 @@ public class GameController : MonoBehaviour
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
+    public static GameController Instance;
+
     [SerializeField] private InputActionReference restartButton;
 
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -38,17 +54,21 @@ public class GameController : MonoBehaviour
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
-    
-    
+    private void Restart()
+    {
+        MusicController.Instance.BusList.sound.stopAllEvents(STOP_MODE.IMMEDIATE);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
 
-    public void Restart()
+    public void GameOver()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Debug.Log("Game Over");
     }
-    
+
     /* ======================================================================================================================== */
     /* EVENT CALLERS                                                                                                            */
     /* ======================================================================================================================== */
@@ -56,5 +76,4 @@ public class GameController : MonoBehaviour
     /* ======================================================================================================================== */
     /* EVENT LISTENERS                                                                                                          */
     /* ======================================================================================================================== */
-
 }

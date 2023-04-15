@@ -45,6 +45,8 @@ public class MusicController : MonoBehaviour
         }
     }
 
+    public BusStruct BusList => busList;
+
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
@@ -181,6 +183,8 @@ public class MusicController : MonoBehaviour
         {
             Instance.musicList.music.start();
         }
+        
+        Instance.musicList.music.setParameterByName("progress", 0f);
     }
 
     public void StopMusic()

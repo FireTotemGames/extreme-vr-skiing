@@ -8,6 +8,9 @@ public class Obstacle : MonoBehaviour
     /* VARIABLE DECLARATIONS                                                                                                    */
     /* ======================================================================================================================== */
 
+    public float minScale;
+    public float maxScale;
+    
     [SerializeField] private float hitForce;
     public float HitForce => hitForce;
     

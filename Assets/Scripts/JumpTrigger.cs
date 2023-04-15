@@ -19,6 +19,7 @@ public class JumpTrigger : MonoBehaviour
         if (other.CompareTag("Player") == true)
         {
             MusicController.Instance.PlaySound("event:/sounds/jump");
+            MusicController.Instance.PlaySound("event:/sounds/jodel");
         }
     }
 
