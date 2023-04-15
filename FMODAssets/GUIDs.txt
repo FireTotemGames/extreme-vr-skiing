@@ -7,6 +7,7 @@
 {c32e8b81-e341-46a0-b7b1-2e2b02804ec3} bus:/sounds/avalanche
 {6cf3a6dd-a9ca-4026-982d-c2ec9c036149} event:/music/main
 {5ef6dfad-bf5d-4bef-9943-0e4a071d0fd4} event:/sounds/avalancheLoop3D
+{0fbeaedd-3b15-4759-aac6-995e92eb0f40} event:/sounds/boost
 {a7d06e62-f036-477e-aca9-fb1e002d0b02} event:/sounds/carving
 {95888ee0-f049-4e31-a25f-0d67eb168a89} event:/sounds/collisionTree
 {51990c3d-2bf5-4cda-ad5b-01c1bf71ad28} event:/sounds/cow
@@ -15,6 +16,7 @@
 {3dd49bfc-6f11-4a29-934c-67755b62b88a} event:/sounds/jodel
 {9f7a135d-1fd5-4a52-b7ad-458f2f7c1648} event:/sounds/jump
 {43d7492a-73c3-4616-8536-204129c4a741} event:/sounds/land
+{9f0ad0a4-0864-4aca-9765-1b824c187fae} event:/sounds/metal_clap
 {a434a77f-702f-4e8f-9893-f17dc55df528} event:/sounds/ouch
 {01eebdcc-f8b9-4cfe-8d6e-16cbcfe1e859} event:/sounds/progress
 {aaa5dfe4-b7f3-4653-a7b0-4ed9816d6e32} event:/sounds/push3D
