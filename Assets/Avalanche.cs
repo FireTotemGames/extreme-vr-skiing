@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,6 +11,7 @@ public class Avalanche : MonoBehaviour
     /* ======================================================================================================================== */
 
     [SerializeField] private GameObject deathTrigger;
+    [SerializeField] private StudioEventEmitter avalancheSound;
 
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
@@ -35,6 +37,7 @@ public class Avalanche : MonoBehaviour
     public void ActivateDeathTrigger()
     {
         deathTrigger.SetActive(true);
+        avalancheSound.Play();
     }
     
     /* ======================================================================================================================== */

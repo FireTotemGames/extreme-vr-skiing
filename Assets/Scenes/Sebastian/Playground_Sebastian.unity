@@ -2966,9 +2966,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1080642779}
   - component: {fileID: 1080642783}
-  - component: {fileID: 1080642782}
   - component: {fileID: 1080642781}
   - component: {fileID: 1080642780}
+  - component: {fileID: 1080642784}
   m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3114,14 +3114,6 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   m_HasMigratedActions: 1
---- !u!81 &1080642782
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1080642778}
-  m_Enabled: 1
 --- !u!20 &1080642783
 Camera:
   m_ObjectHideFlags: 0
@@ -3165,6 +3157,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1080642784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1080642778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1001 &1135186666
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4617,6 +4622,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Avalanche
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207799586846842, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+        type: 3}
+      propertyPath: Params.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207799586846842, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+        type: 3}
+      propertyPath: Params.Array.data[0].Name
+      value: intensity
+      objectReference: {fileID: 0}
+    - target: {fileID: 4983207799586846842, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+        type: 3}
+      propertyPath: Params.Array.data[0].Value
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6809f7e40c0c3c498869b05a34cfdc3, type: 3}
