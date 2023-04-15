@@ -20,6 +20,8 @@ public class Stonemover : MonoBehaviour
     private float timeOffset;
 
     private float rotationSpeed;
+
+    public bool isRotating;
     /* ======================================================================================================================== */
     /* UNITY CALLBACKS                                                                                                          */
     /* ======================================================================================================================== */
@@ -35,6 +37,11 @@ public class Stonemover : MonoBehaviour
 
     private void Update()
     {
+        if (isRotating == false)
+        {
+            return;
+        }
+        
         // Calculate the y position based on the current time and the sine wave
         float y = Mathf.Sin((Time.time + timeOffset) * speed) * targetAmplitude;
 

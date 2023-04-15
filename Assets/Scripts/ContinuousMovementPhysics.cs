@@ -49,6 +49,11 @@ public class ContinuousMovementPhysics : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameController.Instance.State != GameController.GameState.Running)
+        {
+            return;
+        }
+        
         Quaternion yaw = Quaternion.Euler(0f, directionSource.eulerAngles.y, 0f);
         Vector3 direction = yaw * new Vector3(inputMoveAxis.x, 0f, inputMoveAxis.y);
         rb.MovePosition(rb.position + direction * speed * Time.fixedDeltaTime);

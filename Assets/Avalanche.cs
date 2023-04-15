@@ -1,6 +1,7 @@
 using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
+using UnityEngine.Serialization;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 public class Avalanche : MonoBehaviour
@@ -14,7 +15,9 @@ public class Avalanche : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private float dangerSoundStartDistance;
     [SerializeField] private float dangerSoundStopDistance;
-    
+    [SerializeField] private ParticleSystem fogParticles;
+    [FormerlySerializedAs("rockContainer")] [SerializeField] private Transform stoneContainer;
+
     private EventInstance dangerSound;
     private bool avalancheActive;
 
@@ -26,6 +29,10 @@ public class Avalanche : MonoBehaviour
     {
         deathTrigger.SetActive(false);
         dangerSound = RuntimeManager.CreateInstance("event:/sounds/danger");
+        foreach (Stonemover stone in stoneContainer.GetComponentsInChildren<Stonemover>())
+        {
+            stone.isRotating = false;
+        }
     }
 
     private void Update()
@@ -76,6 +83,12 @@ public class Avalanche : MonoBehaviour
         avalancheActive = true;
         deathTrigger.SetActive(true);
         avalancheSound.Play();
+        foreach (Stonemover stone in stoneContainer.GetComponentsInChildren<Stonemover>())
+        {
+            stone.isRotating = true;
+        }
+
+        fogParticles.Play();
     }
 
     /* ======================================================================================================================== */
