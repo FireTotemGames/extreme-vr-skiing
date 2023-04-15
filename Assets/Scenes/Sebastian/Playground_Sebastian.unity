@@ -4623,6 +4623,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Avalanche
       objectReference: {fileID: 0}
+    - target: {fileID: 2457808704448963305, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1209472663}
     - target: {fileID: 4983207799586846842, guid: a6809f7e40c0c3c498869b05a34cfdc3,
         type: 3}
       propertyPath: Params.Array.size
