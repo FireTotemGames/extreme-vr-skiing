@@ -305,7 +305,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   jumpSoundThreshold: 0.5
-  landingSound: {fileID: 0}
 --- !u!114 &104026990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1676,7 +1675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7944a68d322845891727f4ec38a17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avalanche: {fileID: 4983207799586846840}
+  avalanche: {fileID: 4983207799586846841}
   avalancheStartSpeed: 40
   avalancheAcceleration: 10
   width: 200
@@ -4540,6 +4539,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7226002177045557572}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4983207799586846841 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2457808704448963305, guid: a6809f7e40c0c3c498869b05a34cfdc3,
+    type: 3}
+  m_PrefabInstance: {fileID: 7226002177045557572}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c269be1702ad36749a3cf2d67d5c9f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7226002177045557572
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4606,26 +4617,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Avalanche
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404926215282952712, guid: a6809f7e40c0c3c498869b05a34cfdc3,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404926215282952712, guid: a6809f7e40c0c3c498869b05a34cfdc3,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404926215282952712, guid: a6809f7e40c0c3c498869b05a34cfdc3,
-        type: 3}
-      propertyPath: ShapeModule.m_Scale.z
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404926215282952712, guid: a6809f7e40c0c3c498869b05a34cfdc3,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.14901961
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6809f7e40c0c3c498869b05a34cfdc3, type: 3}
