@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,6 +38,18 @@ public class ChangeTextOnSelect : MonoBehaviour, ISelectHandler, IDeselectHandle
         // }
     }
 
+    private void Update()
+    {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            ActiveColor();
+        }
+        else
+        {
+            InActiveColor();
+        }
+    }
+
     /* ======================================================================================================================== */
     /* COROUTINES                                                                                                               */
     /* ======================================================================================================================== */
@@ -45,6 +58,31 @@ public class ChangeTextOnSelect : MonoBehaviour, ISelectHandler, IDeselectHandle
     /* PRIVATE FUNCTIONS                                                                                                        */
     /* ======================================================================================================================== */
 
+    private void ActiveColor()
+    {
+        for (int i = 0; i < labels.Length; i++)
+        {
+            labels[i].color = textActive;
+        }
+        
+        // for (int i = 0; i < images.Length; i++)
+        // {
+        //     images[i].color = textActive;
+        // }
+    }
+    
+    private void InActiveColor()
+    {
+        for (int i = 0; i < labels.Length; i++)
+        {
+            labels[i].color = textIdle;
+        }
+        
+        // for (int i = 0; i < images.Length; i++)
+        // {
+        //     images[i].color = textIdle;
+        // }
+    }
     /* ======================================================================================================================== */
     /* PUBLIC FUNCTIONS                                                                                                         */
     /* ======================================================================================================================== */
@@ -59,27 +97,11 @@ public class ChangeTextOnSelect : MonoBehaviour, ISelectHandler, IDeselectHandle
 
     public void OnSelect(BaseEventData eventData)
     {
-        for (int i = 0; i < labels.Length; i++)
-        {
-            labels[i].color = textActive;
-        }
-        
-        // for (int i = 0; i < images.Length; i++)
-        // {
-        //     images[i].color = textActive;
-        // }
+        ActiveColor();
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        for (int i = 0; i < labels.Length; i++)
-        {
-            labels[i].color = textIdle;
-        }
-        
-        // for (int i = 0; i < images.Length; i++)
-        // {
-        //     images[i].color = textIdle;
-        // }
+        InActiveColor();
     }
 }
